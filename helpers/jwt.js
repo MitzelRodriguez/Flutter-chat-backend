@@ -25,7 +25,20 @@ const generarJWT = (uid) => {
     });
 }
 
+
+const comprobarJWT = (token = '') => {
+      //validar si existe 
+      try {
+        //extraer el uid que viene en el payload del token
+         const {uid} = jwt.verify( token, process.env.JWT_KEY); 
+         return [true, uid];
+    } catch (error) {
+         return [false, null];
+    }
+} 
+
 //Exportacion por nombre entre llaves
 module.exports = {
-    generarJWT
+    generarJWT,
+    comprobarJWT
 }
