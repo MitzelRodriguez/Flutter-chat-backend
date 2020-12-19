@@ -1,4 +1,6 @@
+//Importar models
 const Usuario = require('../models/usuario');
+const Mensaje = require('../models/mensaje');
 
 const usuarioConectado = async(uid = '') => {
 
@@ -16,8 +18,22 @@ const usuarioDesconectado = async(uid = '') => {
     return usuario;
 }
 
+//Grabar mensaje en la BD
+const grabarMensaje = async( payload ) => {
+     try {
+         const mensaje = new Mensaje(payload);
+
+         await mensaje.save();//guardar en la  BD
+
+         return true;
+     } catch (error) {
+         return false;
+     }
+}
+
 
 module.exports = {
     usuarioConectado,
-    usuarioDesconectado
+    usuarioDesconectado,
+    grabarMensaje
 }
